@@ -50,7 +50,7 @@ const Pong = () => {
 
       ctx.clearRect(0, 0, 800, 600);
 
-      ctx.fillStyle = "#fff";
+      ctx.fillStyle = "#000";
       ctx.fillRect(0, paddleLeft.y, paddleLeft.width, paddleLeft.height);
       ctx.fillRect(800 - paddleRight.width, paddleRight.y, paddleRight.width, paddleRight.height);
 
