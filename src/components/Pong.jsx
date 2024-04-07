@@ -29,7 +29,10 @@ const Pong = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
+    console.log("Initial ball state:", ball);
+
     const render = () => {
+      console.log("Updating ball position:", ball);
       setBall((ball) => ({ ...ball, x: ball.x + ball.dx, y: ball.y + ball.dy }));
 
       if ((ball.x <= paddleLeft.width && ball.y > paddleLeft.y && ball.y < paddleLeft.y + paddleLeft.height) || (ball.x >= 800 - paddleRight.width && ball.y > paddleRight.y && ball.y < paddleRight.y + paddleRight.height)) {
@@ -41,10 +44,18 @@ const Pong = () => {
       }
 
       if (ball.x <= 0) {
-        setScores((scores) => ({ ...scores, player2: scores.player2 + 1 }));
+        setScores((scores) => {
+          const newScores = { ...scores, player2: scores.player2 + 1 };
+          console.log("Player 2 scored, resetting ball. New scores:", newScores);
+          return newScores;
+        });
         resetBall();
       } else if (ball.x >= 800) {
-        setScores((scores) => ({ ...scores, player1: scores.player1 + 1 }));
+        setScores((scores) => {
+          const newScores = { ...scores, player1: scores.player1 + 1 };
+          console.log("Player 1 scored, resetting ball. New scores:", newScores);
+          return newScores;
+        });
         resetBall();
       }
 
@@ -74,14 +85,31 @@ const Pong = () => {
     };
 
     const onKeyDown = (e) => {
+      console.log("Key pressed:", e.key);
       if (e.key === "ArrowUp" && paddleRight.y > 0) {
-        setPaddleRight((paddle) => ({ ...paddle, y: paddle.y - 20 }));
+        setPaddleRight((paddle) => {
+          const newPaddle = { ...paddle, y: paddle.y - 20 };
+          console.log("Updated right paddle:", newPaddle);
+          return newPaddle;
+        });
       } else if (e.key === "ArrowDown" && paddleRight.y < 500) {
-        setPaddleRight((paddle) => ({ ...paddle, y: paddle.y + 20 }));
+        setPaddleRight((paddle) => {
+          const newPaddle = { ...paddle, y: paddle.y + 20 };
+          console.log("Updated right paddle:", newPaddle);
+          return newPaddle;
+        });
       } else if (e.key === "w" && paddleLeft.y > 0) {
-        setPaddleLeft((paddle) => ({ ...paddle, y: paddle.y - 20 }));
+        setPaddleLeft((paddle) => {
+          const newPaddle = { ...paddle, y: paddle.y - 20 };
+          console.log("Updated left paddle:", newPaddle);
+          return newPaddle;
+        });
       } else if (e.key === "s" && paddleLeft.y < 500) {
-        setPaddleLeft((paddle) => ({ ...paddle, y: paddle.y + 20 }));
+        setPaddleLeft((paddle) => {
+          const newPaddle = { ...paddle, y: paddle.y + 20 };
+          console.log("Updated left paddle:", newPaddle);
+          return newPaddle;
+        });
       }
     };
 
